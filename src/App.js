@@ -1,7 +1,10 @@
 import React ,{ useState } from 'react';
-//import Accordion from './components/Accordion';
-//import Search from './components/SearchWiki';
+import Accordion from './components/Accordion';
+import Search from './components/SearchWiki';
 import Dropdown from './components/Dropdown';
+import Route from './components/Route';
+import Header from './components/Header';
+
 
 const itemsAccordion = [
   {
@@ -34,23 +37,27 @@ const optionsDropdown = [
   },
 ];
 
-
 const App=()=>{
+
   const [selected, setSelected] = useState(optionsDropdown[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
     <div>
-      <button onClick={() => setShowDropdown(!showDropdown)}>
-        Toggle Dropdown
-      </button>
-      {showDropdown ? (
+      <Header />
+      <Route path="/">
+        <Accordion items={itemsAccordion} />
+      </Route>
+      <Route path="/list">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
         <Dropdown
+          label="Select a color"
+          options={optionsDropdown}
           selected={selected}
           onSelectedChange={setSelected}
-          options={optionsDropdown}
         />
-      ) : null}
+      </Route>
     </div>
   );
 };
